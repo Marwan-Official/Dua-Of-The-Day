@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dua of the Day | دعاء اليوم</title>
+    
+    <meta property="og:title" content="Dua of the Day 🌙">
+    <meta property="og:description" content="A daily Dua for the holy month of Ramadan.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://Marwan-Official.github.io/Dua-Of-The-Day/preview.png">
+    <meta property="og:url" content="https://Marwan-Official.github.io/Dua-Of-The-Day/">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'amoled': '#000000',
+                        'light-bg': '#F9FAFB', 
+                        'theme-dark': 'var(--theme-dark)',
+                        'theme-light': 'var(--theme-light)',
+                    },
+                    fontFamily: {
+                        sans: ['"Outfit"', 'sans-serif'],
+                        cairo: ['"Cairo"', 'sans-serif'],
+                        amiri: ['"Amiri"', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-site': 'fadeInSite 1.2s ease-out forwards',
+                        'swing': 'swing 3s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate', 
+                        'swing-slow': 'swing 5s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate-reverse', 
+                        'glow-pulse': 'glowPulse 3s infinite alternate',
+                        'drift': 'drift 15s linear infinite alternate',
+                    },
+                    keyframes: {
+                        fadeInSite: {
+                            '0%': { opacity: '0', transform: 'scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        swing: {
+                            '0%': { transform: 'rotate(5deg)' },
+                            '100%': { transform: 'rotate(-5deg)' },
+                        },
+                        glowPulse: {
+                            /* Using currentColor forces the SVG filter to animate smoothly with theme colors */
+                            '0%': { filter: 'drop-shadow(0 0 5px currentColor)' },
+                            '100%': { filter: 'drop-shadow(0 0 20px currentColor)' }
+                        },
+                        drift: {
+                            '0%': { transform: 'translate(0%, 0%) scale(1)' },
+                            '100%': { transform: 'translate(5%, 5%) scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --theme-dark: #00FF88; /* Neon Green */
+            --theme-dark-rgb: 0, 255, 136; 
+            --theme-light: #059669;
+            --theme-light-rgb: 5, 150, 105;
+        }
+
+        /* STRICT MOBILE SCROLL LOCK */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100dvh;
+            overflow: hidden !important; 
+            overscroll-behavior: none; 
+            position: fixed; 
+            inset: 0;
+            background-color: var(--light-bg);
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .dark body { 
+            background-color: #000000; 
+        }
+
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        *, *::before, *::after {
+            transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, filter, font-size, transform, text-shadow;
+            transition-duration: 400ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        ::-webkit-scrollbar { display: none; width: 0px; background: transparent; }
+        ::selection { background-color: var(--theme-dark); color: black; }
+
+        .dropdown-enter {
+            opacity: 0;
+            transform: translateX(10px) scale(0.95);
+            pointer-events: none;
+            visibility: hidden;
+        }
+        .dropdown-active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        /* Particle Animation */
+        @keyframes floatParticle {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            20% { opacity: var(--p-opacity); }
+            80% { opacity: var(--p-opacity); }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            background-color: currentColor; 
+            box-shadow: 0 0 10px currentColor;
+            opacity: 0; 
+            animation-name: floatParticle;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            z-index: 0; 
+        }
+
+        /* Fully Smooth Background Glow using Masks instead of heavy gradients */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--theme-light);
+            -webkit-mask-image: radial-gradient(circle, black 0%, transparent 70%);
+            mask-image: radial-gradient(circle, black 0%, transparent 70%);
+            opacity: 0.15; 
+            pointer-events: none;
+            z-index: -5;
+        }
+        .dark .ambient-glow {
+            background-color: var(--theme-dark);
+            opacity: 0.15; 
+        }
+
+        /* Smooth dynamic shadows driven by pure RGB Variables */
+        .badge-shadow { box-shadow: 0 4px 15px rgba(var(--theme-light-rgb), 0.15); }
+        .dark .badge-shadow { box-shadow: 0 4px 15px rgba(var(--theme-dark-rgb), 0.15); }
+        
+        .dark .text-neon {
+            text-shadow: 0 0 20px rgba(var(--theme-dark-rgb), 0.3), 0 0 40px rgba(var(--theme-dark-rgb), 0.1);
+        }
+
+        /* Quotes */
+        .quote-mark { color: #D1D5DB; }
+        .dark .quote-mark { color: #333333; }
+
+        /* Typography */
+        .font-cairo { line-height: 1.6 !important; }
+        .font-amiri { line-height: 2.2 !important; }
+        
+        .lantern-glow {
+            animation: glowPulse 4s ease-in-out infinite alternate;
+        }
+
+        .rotate-icon { transform: rotate(45deg); }
+        
+        .blur-fade-out { 
+            opacity: 0 !important; 
+            filter: blur(8px) !important;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="text-gray-900 dark:text-white flex flex-col items-center justify-center select-none animate-fade-in-site">
+
+    <div id="particlesContainer" class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-50 dark:opacity-60"></div>
+
+    <div class="ambient-glow w-[500px] h-[500px] top-[-10%] left-[-10%] animate-drift" style="animation-delay: 0s;"></div>
+    <div class="ambient-glow w-[400px] h-[400px] bottom-[-10%] right-[-10%] animate-drift" style="animation-delay: -5s; animation-direction: alternate-reverse;"></div>
+
+    <div class="absolute top-0 left-6 md:left-20 z-[-1] opacity-80 dark:opacity-80 pointer-events-none origin-top animate-swing scale-75 md:scale-100 text-theme-light dark:text-theme-dark">
+        <svg width="60" height="180" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="lantern-glow">
+            <line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-width="2" class="text-gray-400 dark:text-gray-700"/>
+            <path d="M50 50 L80 80 L80 140 L50 170 L20 140 L20 80 Z" stroke="currentColor" stroke-width="3" class="fill-transparent"/>
+            <path d="M50 50 L50 170" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-700"/>
+            <path d="M20 80 L80 80" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-700"/>
+            <path d="M20 140 L80 140" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-700"/>
+            <line x1="50" y1="170" x2="50" y2="220" stroke="currentColor" stroke-width="2" class="text-gray-400 dark:text-gray-700"/>
+            <circle cx="50" cy="225" r="5" class="fill-current"/>
+        </svg>
+    </div>
+
+    <div class="absolute top-[-20px] right-6 md:right-32 z-[-2] opacity-40 dark:opacity-50 pointer-events-none origin-top animate-swing-slow blur-[2px] scale-[0.6] md:scale-75 text-theme-light dark:text-theme-dark">
+        <svg width="60" height="180" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-width="2" class="text-gray-400 dark:text-gray-800"/>
+            <path d="M50 50 L80 80 L80 140 L50 170 L20 140 L20 80 Z" stroke="currentColor" stroke-width="2" class="fill-transparent"/> 
+            <path d="M50 50 L50 170" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-800"/>
+            <path d="M20 80 L80 80" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-800"/>
+            <path d="M20 140 L80 140" stroke="currentColor" stroke-width="1" class="text-gray-400 dark:text-gray-800"/>
+            <line x1="50" y1="170" x2="50" y2="220" stroke="currentColor" stroke-width="2" class="text-gray-400 dark:text-gray-800"/>
+            <circle cx="50" cy="225" r="5" class="fill-current"/>
+        </svg>
+    </div>
+
+    <div id="controlsContainer" class="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-4 text-[10px] sm:text-xs md:text-sm font-bold tracking-wider text-gray-400 dark:text-gray-500 z-50">
+        <button id="langToggle" onclick="toggleLanguage()" class="hover:text-black dark:hover:text-white uppercase py-2 tracking-widest">AR</button>
+
+        <div class="relative">
+            <button id="colorToggle" onclick="toggleColorDropdown(event)" class="hover:text-theme-light dark:hover:text-theme-dark py-2 group z-50 relative" aria-label="Change Color">
+                <svg id="paletteIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+            </button>
+            
+            <div id="colorDropdown" class="absolute right-10 top-0 flex flex-row gap-2 md:gap-3 items-center bg-white dark:bg-[#151515] p-2 rounded-full shadow-2xl border border-gray-100 dark:border-gray-800 dropdown-enter backdrop-blur-md z-40 pr-4">
+                <button onclick="selectColor(0)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#00FF88] hover:scale-125 shadow-sm"></button>
+                <button onclick="selectColor(1)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#FF3B30] hover:scale-125 shadow-sm"></button>
+                <button onclick="selectColor(2)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#3B82F6] hover:scale-125 shadow-sm"></button>
+                <button onclick="selectColor(3)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#FACC15] hover:scale-125 shadow-sm"></button>
+            </div>
+        </div>
+
+        <button id="themeToggle" onclick="toggleTheme()" class="hover:text-black dark:hover:text-white transform hover:scale-110 active:scale-95 p-1 relative w-5 h-5 md:w-6 md:h-6">
+            <div id="iconWrapper" class="relative w-full h-full flex items-center justify-center">
+                <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 absolute opacity-0 scale-50 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 absolute opacity-0 scale-50 -rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </div>
+        </button>
+    </div>
+
+    <div id="mainContainer" class="w-full max-w-4xl px-4 sm:px-8 md:px-12 flex flex-col justify-center text-center z-10 relative">
+        
+        <div id="dayBadgeContainer" class="flex justify-center mb-4 md:mb-8">
+            <h2 id="ramadanDay" class="text-xs sm:text-sm md:text-base font-bold text-theme-light dark:text-theme-dark tracking-[0.2em] uppercase py-1.5 px-4 md:py-2 md:px-6 rounded-full bg-gray-100/50 dark:bg-white/5 backdrop-blur-sm border border-gray-200 dark:border-white/10 badge-shadow">
+                </h2>
+        </div>
+        
+        <div class="relative py-2 px-2 sm:px-4 rounded-3xl w-full flex flex-col items-center">
+            <span id="quoteTop" class="quote-mark absolute -top-4 md:-top-6 left-0 text-5xl md:text-7xl font-serif select-none opacity-50">“</span>
+            
+            <h1 id="duaMain" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon">
+                </h1>
+
+            <p id="duaTranslation" class="text-sm sm:text-base md:text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed max-w-xl mx-auto font-sans mt-2 md:mt-0">
+                </p>
+            
+            <span id="quoteBottom" class="quote-mark absolute -bottom-6 md:-bottom-10 right-0 text-5xl md:text-7xl font-serif select-none opacity-50">”</span>
+        </div>
+        
+        <div class="mt-8 md:mt-12 flex flex-col items-center gap-2 md:gap-3">
+            <div id="separatorLine" class="w-12 h-[3px] md:w-16 md:h-1 bg-theme-light dark:bg-theme-dark rounded-full opacity-60 shadow-[0_0_8px_currentColor] text-theme-light dark:text-theme-dark"></div>
+            <p id="currentDate" class="text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-500 font-bold tracking-[0.1em] uppercase tabular-nums mt-2 md:mt-4"></p>
+        </div>
+    </div>
+
+    <div id="footerContainer" class="absolute bottom-6 w-full text-center px-4 z-10">
+        <p id="footerText" class="text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100">
+            Created by Marwan Elmoghazy.
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const safeStorage = {
+                getItem: (key) => { try { return localStorage.getItem(key); } catch (e) { return null; } },
+                setItem: (key, val) => { try { localStorage.setItem(key, val); } catch (e) {} }
+            };
+
+            let storedLang = safeStorage.getItem('saved_lang');
+            let lang = storedLang ? storedLang : 'ar'; 
+
+            let storedColor = safeStorage.getItem('saved_color_index');
+            let currentColorIndex = storedColor !== null ? parseInt(storedColor) : 0; 
+            if (isNaN(currentColorIndex)) currentColorIndex = 0; 
+
+            let storedTheme = safeStorage.getItem('saved_theme');
+            let isDark;
+            if (storedTheme) {
+                isDark = storedTheme === 'dark';
+            } else {
+                isDark = true; 
+            }
+            
+            let dropdownOpen = false;
+            let isZenMode = false;
+
+            const ramadanStartDate = new Date(2026, 1, 19); 
+
+            // Includes precise RGBs injected into CSS to ensure shadow animations map perfectly
+            const colorThemes = [
+                { name: 'green',  light: '#059669', dark: '#00FF88', rgbDark: '0, 255, 136', rgbLight: '5, 150, 105' },   
+                { name: 'red',    light: '#DC2626', dark: '#FF3B30', rgbDark: '255, 59, 48', rgbLight: '220, 38, 38' },   
+                { name: 'blue',   light: '#2563EB', dark: '#3B82F6', rgbDark: '59, 130, 246', rgbLight: '37, 99, 235' },  
+                { name: 'yellow', light: '#CA8A04', dark: '#FACC15', rgbDark: '250, 204, 21', rgbLight: '202, 138, 4' }   
+            ];
+
+            const duas = [
+                { ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", en: "O Allah, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire." }, // Day 1
+                { ar: "اللَّهُمَّ زَيِّنِّي فِيهِ بِالسِّتْرِ وَالْعَفَافِ وَاسْتُرْنِي فِيهِ بِلِبَاسِ الْقُنُوعِ وَالْكَفَافِ", en: "O Allah, adorn me with concealment and chastity, and cover me with the garment of contentment." }, // Day 2
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِيهِ النَّعِيمَ الْمُقِيمَ الَّذِي لَا يَحُولُ وَلَا يَزُولُ", en: "O Allah, I ask You for lasting bliss that does not change or disappear." }, // Day 3
+                { ar: "اللَّهُمَّ لَا تُؤَاخِذْنِي فِيهِ بِالْعَثَرَاتِ وَأَقِلْنِي فِيهِ مِنَ الْخَطَايَا وَالْهَفَوَاتِ", en: "O Allah, do not hold me accountable for my slips, and forgive my mistakes and errors." }, // Day 4
+                { ar: "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ", en: "O Turner of the hearts, make my heart firm upon Your religion." }, // Day 5
+                { ar: "اللَّهُمَّ ارْزُقْنِي فِيهِ فَضْلَ لَيْلَةِ الْقَدْرِ وَصَيِّرْ أُمُورِي فِيهِ مِنَ الْعُسْرِ إِلَى الْيُسْرِ", en: "O Allah, grant me the virtue of Laylat al-Qadr, and change my affairs from difficulty to ease." }, // Day 6
+                { ar: "رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ", en: "O Allah, forgive me and accept my repentance; You are the Accepting of repentance, the Merciful." }, // Day 7
+                { ar: "اللَّهُمَّ اجْعَلْ صِيَامِي فِيهِ صِيَامَ الصَّائِمِينَ وَقِيَامِي فِيهِ قِيَامَ الْقَائِمِينَ", en: "O Allah, make my fasts the fasts of those who fast (sincerely), and my standing in prayer the standing of those who pray (obediently)." }, // Day 8
+                { ar: "اللَّهُمَّ نَبِّهْنِي فِيهِ لِبَرَكَاتِ أَسْحَارِهِ وَنَوِّرْ فِيهِ قَلْبِي بِضِيَاءِ أَنْوَارِهِ", en: "O Allah, alert me to the blessings of its dawns, and illuminate my heart with the brightness of its lights." }, // Day 9
+                { ar: "اللَّهُمَّ اغْسِلْنِي فِيهِ مِنَ الذُّنُوبِ وَطَهِّرْنِي فِيهِ مِنَ الْعُيُوبِ", en: "O Allah, wash away my sins, and purify me from flaws." }, // Day 10
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", en: "O Allah, I ask You for guidance, piety, chastity, and self-sufficiency." }, // Day 11
+                { ar: "اللَّهُمَّ وَفِّقْنِي فِيهِ لِمُوَافَقَةِ الْأَبْرَارِ وَجَنِّبْنِي فِيهِ مُرَافَقَةَ الْأَشْرَارِ", en: "O Allah, guide me to accompany the righteous, and keep me away from the company of the wicked." }, // Day 12
+                { ar: "اللَّهُمَّ اجْعَلْ صِيَامِي فِيهِ بِالشُّكْرِ وَالْقَبُولِ عَلَى مَا تَرْضَاهُ وَيَرْضَاهُ الرَّسُولُ", en: "O Allah, make my fast accepted and appreciated according to what pleases You and the Messenger." }, // Day 13
+                { ar: "اللَّهُمَّ قَرِّبْنِي فِيهِ إِلَى مَرْضَاتِكَ وَجَنِّبْنِي فِيهِ مِنْ سَخَطِكَ وَنَقِمَاتِكَ", en: "O Allah, draw me closer to Your pleasure and keep me away from Your anger and punishment." }, // Day 14
+                { ar: "رَبَّنَا لاَ تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً", en: "O Allah, let not our hearts deviate after You have guided us and grant us from Yourself mercy." }, // Day 15
+                { ar: "اللَّهُمَّ اجْعَلْنِي فِيهِ مُحِبّاً لِأَوْلِيَائِكَ وَمُعَادِياً لِأَعْدَائِكَ", en: "O Allah, make me a lover of Your friends and an enemy of Your enemies." }, // Day 16
+                { ar: "اللَّهُمَّ غَشِّنِي فِيهِ بِالرَّحْمَةِ وَارْزُقْنِي فِيهِ التَّوْفِيقَ وَالْعِصْمَةَ", en: "O Allah, cover me with mercy, and grant me success and protection." }, // Day 17
+                { ar: "اللَّهُمَّ اهْدِنِي فِيهِ لِصَالِحِ الْأَعْمَالِ وَاقْضِ لِي فِيهِ الْحَوَائِجَ وَالْآمَالَ", en: "O Allah, guide me to righteous deeds, and fulfill my needs and hopes." }, // Day 18
+                { ar: "اللَّهُمَّ ارْزُقْنِي فِيهِ طَاعَةَ الْخَاشِعِينَ وَاشْرَحْ فِيهِ صَدْرِي بِإِنَابَةِ الْمُخْبِتِينَ", en: "O Allah, grant me the obedience of the humble, and expand my chest with the repentance of the submissive." }, // Day 19
+                { ar: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي", en: "O Allah, You are forgiving and love forgiveness, so forgive me." }, // Day 20
+                { ar: "اللَّهُمَّ وَفِّقْ حَظِّي فِيهِ مِنَ النَّوَافِلِ وَأَكْرِمْنِي فِيهِ بِإِحْضَارِ الْمَسَائِلِ", en: "O Allah, increase my share of voluntary acts, and honor me by fulfilling my requests." }, // Day 21
+                { ar: "اللَّهُمَّ ارْزُقْنِي فِيهِ الذِّهْنَ وَالتَّنْبِيهَ وَبَاعِدْنِي فِيهِ مِنَ السَّفَاهَةِ وَالتَّمْوِيهِ", en: "O Allah, grant me intellect and awareness, and keep me away from foolishness and deception." }, // Day 22
+                { ar: "اللَّهُمَّ طَهِّرْنِي فِيهِ مِنَ الدَّنَسِ وَالْأَقْذَارِ وَصَبِّرْنِي فِيهِ عَلَى كَائِنَاتِ الْأَقْدَارِ", en: "O Allah, purify me from uncleanliness and dirt, and make me patient over the events of decree." }, // Day 23
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِيهِ مَا يُرْضِيكَ وَأَعُوذُ بِكَ مِمَّا يُؤْذِيكَ", en: "O Allah, I ask You for what pleases You, and I seek refuge in You from what displeases You." }, // Day 24
+                { ar: "اللَّهُمَّ حَبِّبْ إِلَيَّ فِيهِ الْإِحْسَانَ وَكَرِّهْ إِلَيَّ فِيهِ الْفُسُوقَ وَالْعِصْيَانَ", en: "O Allah, make goodness beloved to me and make immorality and disobedience hateful to me." }, // Day 25
+                { ar: "اللَّهُمَّ اجْعَلْ سَعْيِي فِيهِ مَشْكُوراً وَذَنْبِي فِيهِ مَغْفُوراً", en: "O Allah, make my effort appreciated and my sin forgiven." }, // Day 26
+                { ar: "اللَّهُمَّ وَفِّرْ فِيهِ حَظِّي مِنْ بَرَكَاتِهِ وَسَهِّلْ سَبِيلِي إِلَى خَيْرَاتِهِ", en: "O Allah, increase my share of its blessings, and make easy my path to its goodness." }, // Day 27
+                { ar: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ", en: "O Allah, help me to remember You, to thank You, and to worship You in the best of manners." }, // Day 28
+                { ar: "اللَّهُمَّ افْتَحْ لِي فِيهِ أَبْوَابَ الْجِنَانِ وَأَغْلِقْ عَنِّي فِيهِ أَبْوَابَ النِّيرَانِ", en: "O Allah, open for me the gates of Paradise, and close for me the gates of Hellfire." }, // Day 29
+                { ar: "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ", en: "O Allah, accept from us; indeed You are the Hearing, the Knowing." } // Day 30
+            ];
+
+            const el = (id) => document.getElementById(id);
+            const ramadanDayEl = el('ramadanDay');
+            const duaMainEl = el('duaMain');
+            const duaTranslationEl = el('duaTranslation');
+            const currentDateEl = el('currentDate');
+            const footerEl = el('footerText');
+            const dropdownEl = el('colorDropdown');
+            const langBtn = el('langToggle');
+            const particlesContainer = el('particlesContainer');
+            const paletteIcon = el('paletteIcon');
+            const colorToggleBtn = el('colorToggle');
+            const controlsContainer = el('controlsContainer');
+            const footerContainer = el('footerContainer');
+            const dayBadgeContainer = el('dayBadgeContainer');
+            const separatorLine = el('separatorLine');
+            const quoteTop = el('quoteTop');
+            const quoteBottom = el('quoteBottom');
+
+            function createParticles() {
+                if (!particlesContainer) return;
+                particlesContainer.innerHTML = ''; 
+                for(let i=0; i<30; i++) { 
+                    const p = document.createElement('div');
+                    p.classList.add('particle', 'text-theme-light', 'dark:text-theme-dark');
+                    const size = Math.random() * 5 + 2 + 'px'; 
+                    p.style.width = size;
+                    p.style.height = size;
+                    p.style.left = Math.random() * 100 + '%';
+                    const duration = Math.random() * 20 + 10; 
+                    const delay = Math.random() * -30; 
+                    p.style.animationDuration = duration + 's';
+                    p.style.animationDelay = delay + 's';
+                    p.style.setProperty('--p-opacity', Math.random() * 0.5 + 0.2);
+                    particlesContainer.appendChild(p);
+                }
+            }
+
+            function getRamadanDay() {
+                const now = new Date();
+                now.setHours(0, 0, 0, 0);
+                const diffTime = now - ramadanStartDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                if (diffDays < 1) return 1; 
+                return diffDays;
+            }
+
+            function getFormattedDate(locale) {
+                const now = new Date();
+                const gregorian = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+                const rDay = getRamadanDay();
+                const rYear = 1447; 
+                let hijri;
+                if(locale === 'ar') {
+                    hijri = `${rDay} رمضان ${rYear}`;
+                } else {
+                    hijri = `Ramadan ${rDay}, ${rYear}`;
+                }
+                return `${hijri} • ${gregorian}`;
+            }
+
+            function applyColorTheme(index) {
+                if (!colorThemes[index]) index = 0;
+                const theme = colorThemes[index];
+                document.documentElement.style.setProperty('--theme-light', theme.light);
+                document.documentElement.style.setProperty('--theme-dark', theme.dark);
+                document.documentElement.style.setProperty('--theme-light-rgb', theme.rgbLight);
+                document.documentElement.style.setProperty('--theme-dark-rgb', theme.rgbDark);
+            }
+
+            window.toggleColorDropdown = (e) => {
+                e.stopPropagation();
+                if (dropdownOpen) closeDropdown();
+                else openDropdown();
+            };
+
+            window.selectColor = (index) => {
+                if (index === currentColorIndex) { closeDropdown(); return; }
+                currentColorIndex = index;
+                safeStorage.setItem('saved_color_index', currentColorIndex);
+                applyColorTheme(currentColorIndex);
+                closeDropdown();
+            };
+
+            window.toggleLanguage = () => {
+                const textElements = [ramadanDayEl, duaMainEl, duaTranslationEl, currentDateEl, footerContainer];
+                
+                textElements.forEach(el => {
+                    if(el) el.classList.add('blur-fade-out');
+                });
+
+                setTimeout(() => {
+                    lang = lang === 'en' ? 'ar' : 'en';
+                    safeStorage.setItem('saved_lang', lang); 
+                    updateUI();
+                    
+                    textElements.forEach(el => {
+                        if(el) el.classList.remove('blur-fade-out');
+                    });
+                }, 400); 
+            };
+
+            window.toggleTheme = () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                safeStorage.setItem('saved_theme', isDark ? 'dark' : 'light');
+                updateThemeIcon(isDark);
+            };
+            
+            function toggleZenMode() {
+                isZenMode = !isZenMode;
+                if (isZenMode) {
+                    controlsContainer.classList.add('opacity-0', 'pointer-events-none');
+                } else {
+                    controlsContainer.classList.remove('opacity-0', 'pointer-events-none');
+                }
+            }
+
+            function openDropdown() {
+                dropdownEl.classList.remove('dropdown-enter');
+                dropdownEl.classList.add('dropdown-active');
+                paletteIcon.classList.add('rotate-icon');
+                colorToggleBtn.classList.add('text-theme-light', 'dark:text-theme-dark');
+                dropdownOpen = true;
+            }
+
+            function closeDropdown() {
+                dropdownEl.classList.remove('dropdown-active');
+                dropdownEl.classList.add('dropdown-enter');
+                paletteIcon.classList.remove('rotate-icon');
+                colorToggleBtn.classList.remove('text-theme-light', 'dark:text-theme-dark');
+                dropdownOpen = false;
+            }
+
+            document.addEventListener('click', (e) => {
+                if (dropdownOpen && !e.target.closest('#colorToggle') && !e.target.closest('#colorDropdown')) {
+                    closeDropdown();
+                    return; 
+                }
+                if (!e.target.closest('button') && !e.target.closest('#colorDropdown')) {
+                    toggleZenMode();
+                }
+            });
+
+            function getArabicOrdinal(number) {
+                const ordinals = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن", "التاسع", "العاشر", "الحادي عشر", "الثاني عشر", "الثالث عشر", "الرابع عشر", "الخامس عشر", "السادس عشر", "السابع عشر", "الثامن عشر", "التاسع عشر", "العشرين", "الحادي والعشرين", "الثاني والعشرين", "الثالث والعشرين", "الرابع والعشرين", "الخامس والعشرين", "السادس والعشرين", "السابع والعشرين", "الثامن والعشرين", "التاسع والعشرين", "الثلاثين"];
+                if(number <= ordinals.length) return ordinals[number - 1];
+                return number; 
+            }
+
+            function updateUI() {
+                const day = getRamadanDay();
+                
+                if (day > 30) {
+                    dayBadgeContainer.classList.add('hidden');
+                    separatorLine.classList.add('hidden');
+                    quoteTop.classList.add('hidden');
+                    quoteBottom.classList.add('hidden');
+                    
+                    duaMainEl.innerText = lang === 'en' ? "Eid Mubarak" : "عيد مبارك";
+                    duaMainEl.className = "text-4xl sm:text-5xl md:text-7xl font-bold tracking-normal mb-2 leading-loose text-[#D4AF37] dark:text-[#FFD700] font-amiri drop-shadow-md flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px]";
+                    
+                    duaTranslationEl.innerText = lang === 'en' ? "May Allah accept from us and from you." : "تقبل الله منا ومنكم صالح الأعمال";
+                    duaTranslationEl.classList.remove('hidden');
+                    
+                    currentDateEl.innerText = ""; 
+                    
+                    if (lang === 'en') {
+                        langBtn.innerText = "AR";
+                        footerEl.innerText = "Created by Marwan Elmoghazy.";
+                        footerEl.className = "text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                    } else {
+                        langBtn.innerText = "EN";
+                        footerEl.innerText = "تم الإنشاء والتطوير بواسطة مروان المغازي.";
+                        footerEl.className = "text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                    }
+                    return; 
+                }
+
+                const duaIndex = (day - 1) % duas.length; 
+                const currentDua = duas[duaIndex];
+
+                duaMainEl.innerText = currentDua.ar;
+                duaMainEl.className = "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon";
+                
+                duaTranslationEl.innerText = currentDua.en;
+                duaTranslationEl.classList.remove('hidden');
+
+                if (lang === 'en') {
+                    ramadanDayEl.innerText = `Day ${day} of Ramadan`;
+                    ramadanDayEl.style.fontFamily = '"Outfit", sans-serif';
+                    
+                    currentDateEl.innerText = getFormattedDate('en'); 
+                    langBtn.innerText = "AR";
+                    footerEl.innerText = "Created by Marwan Elmoghazy.";
+                    footerEl.className = "text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+
+                } else {
+                    ramadanDayEl.innerText = `اليوم ${getArabicOrdinal(day)} من رمضان`;
+                    ramadanDayEl.style.fontFamily = '"Cairo", sans-serif';
+                    
+                    currentDateEl.innerText = getFormattedDate('ar'); 
+                    langBtn.innerText = "EN";
+                    footerEl.innerText = "تم الإنشاء والتطوير بواسطة مروان المغازي.";
+                    footerEl.className = "text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                }
+            }
+
+            function updateThemeIcon(isDark) {
+                const sun = el('sunIcon');
+                const moon = el('moonIcon');
+                if(!sun || !moon) return;
+                if (isDark) {
+                    sun.classList.remove('opacity-100', 'scale-100', 'rotate-0');
+                    sun.classList.add('opacity-0', 'scale-50', 'rotate-90');
+                    moon.classList.remove('opacity-0', 'scale-50', '-rotate-90');
+                    moon.classList.add('opacity-100', 'scale-100', 'rotate-0');
+                } else {
+                    moon.classList.remove('opacity-100', 'scale-100', 'rotate-0');
+                    moon.classList.add('opacity-0', 'scale-50', '-rotate-90');
+                    sun.classList.remove('opacity-0', 'scale-50', 'rotate-90');
+                    sun.classList.add('opacity-100', 'scale-100', 'rotate-0');
+                }
+            }
+
+            if (isDark) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+            
+            applyColorTheme(currentColorIndex);
+            updateThemeIcon(isDark);
+            createParticles();
+            updateUI();
+        });
+    </script>
+</body>
+</html>
