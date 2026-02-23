@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="ar" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dua of the Day | دعاء اليوم</title>
     
-    <meta property="og:title" content="Dua of the Day 🌙">
+    <!-- SOCIAL PREVIEW -->
+    <meta property="og:title" content="Dua of the Day | دعاء اليوم 🌙">
     <meta property="og:description" content="A daily Dua for the holy month of Ramadan.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://Marwan-Official.github.io/Dua-Of-The-Day/preview.png">
     <meta property="og:url" content="https://Marwan-Official.github.io/Dua-Of-The-Day/">
     
+    <!-- PWA / APP-IFICATION META TAGS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Dua of the Day">
+    <meta name="theme-color" content="#000000" id="metaThemeColor">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -49,7 +58,6 @@
                             '100%': { transform: 'rotate(-5deg)' },
                         },
                         glowPulse: {
-                            /* Using currentColor forces the SVG filter to animate smoothly with theme colors */
                             '0%': { filter: 'drop-shadow(0 0 5px currentColor)' },
                             '100%': { filter: 'drop-shadow(0 0 20px currentColor)' }
                         },
@@ -64,10 +72,10 @@
     </script>
     <style>
         :root {
-            --theme-dark: #00FF88; /* Neon Green */
-            --theme-dark-rgb: 0, 255, 136; 
-            --theme-light: #059669;
-            --theme-light-rgb: 5, 150, 105;
+            --theme-dark: #FF1040; 
+            --theme-dark-rgb: 255, 16, 64; 
+            --theme-light: #D90429;
+            --theme-light-rgb: 217, 4, 41;
         }
 
         /* STRICT MOBILE SCROLL LOCK */
@@ -84,9 +92,7 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        .dark body { 
-            background-color: #000000; 
-        }
+        .dark body { background-color: #000000; }
 
         body {
             transition: background-color 0.5s ease, color 0.5s ease;
@@ -97,6 +103,9 @@
             transition-duration: 400ms;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        #colorThumb { transition: none !important; }
+        #colorCenterPreview { transition: background-color 0.1s ease !important; }
 
         ::-webkit-scrollbar { display: none; width: 0px; background: transparent; }
         ::selection { background-color: var(--theme-dark); color: black; }
@@ -114,7 +123,6 @@
             visibility: visible;
         }
 
-        /* Particle Animation */
         @keyframes floatParticle {
             0% { transform: translateY(110vh) scale(0); opacity: 0; }
             20% { opacity: var(--p-opacity); }
@@ -135,7 +143,6 @@
             z-index: 0; 
         }
 
-        /* Fully Smooth Background Glow using Masks instead of heavy gradients */
         .ambient-glow {
             position: absolute;
             border-radius: 50%;
@@ -146,47 +153,69 @@
             pointer-events: none;
             z-index: -5;
         }
-        .dark .ambient-glow {
-            background-color: var(--theme-dark);
-            opacity: 0.15; 
-        }
+        .dark .ambient-glow { background-color: var(--theme-dark); opacity: 0.15; }
 
-        /* Smooth dynamic shadows driven by pure RGB Variables */
-        .badge-shadow { box-shadow: 0 4px 15px rgba(var(--theme-light-rgb), 0.15); }
+        .badge-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 2px 10px rgba(var(--theme-light-rgb), 0.1); }
         .dark .badge-shadow { box-shadow: 0 4px 15px rgba(var(--theme-dark-rgb), 0.15); }
         
         .dark .text-neon {
             text-shadow: 0 0 20px rgba(var(--theme-dark-rgb), 0.3), 0 0 40px rgba(var(--theme-dark-rgb), 0.1);
         }
 
-        /* Quotes */
         .quote-mark { color: #D1D5DB; }
         .dark .quote-mark { color: #333333; }
-
-        /* Typography */
         .font-cairo { line-height: 1.6 !important; }
         .font-amiri { line-height: 2.2 !important; }
-        
-        .lantern-glow {
-            animation: glowPulse 4s ease-in-out infinite alternate;
-        }
-
+        .lantern-glow { animation: glowPulse 4s ease-in-out infinite alternate; }
         .rotate-icon { transform: rotate(45deg); }
         
-        .blur-fade-out { 
-            opacity: 0 !important; 
-            filter: blur(8px) !important;
-            transform: scale(0.98);
+        .blur-fade-out { opacity: 0 !important; filter: blur(8px) !important; transform: scale(0.98) !important; }
+
+        .conic-ring {
+            background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+            border-radius: 50%;
+            touch-action: none; 
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .mask-vertical {
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+        }
+        .roller-item {
+            height: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: center;
+        }
+        .badge-open {
+            height: 120px !important;
+            border-color: var(--theme-light) !important;
+        }
+        .dark .badge-open {
+            border-color: var(--theme-dark) !important;
+        }
+        
+        @keyframes gentleBreathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.015); }
+        }
+        .animate-breathe {
+            animation: gentleBreathe 8s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="text-gray-900 dark:text-white flex flex-col items-center justify-center select-none animate-fade-in-site">
+<body class="text-gray-900 dark:text-white flex flex-col items-center justify-center select-none animate-fade-in-site w-full h-[100dvh]">
 
+    <!-- ATMOSPHERE -->
     <div id="particlesContainer" class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-50 dark:opacity-60"></div>
-
     <div class="ambient-glow w-[500px] h-[500px] top-[-10%] left-[-10%] animate-drift" style="animation-delay: 0s;"></div>
     <div class="ambient-glow w-[400px] h-[400px] bottom-[-10%] right-[-10%] animate-drift" style="animation-delay: -5s; animation-direction: alternate-reverse;"></div>
 
+    <!-- === PARALLAX LANTERNS === -->
     <div class="absolute top-0 left-6 md:left-20 z-[-1] opacity-80 dark:opacity-80 pointer-events-none origin-top animate-swing scale-75 md:scale-100 text-theme-light dark:text-theme-dark">
         <svg width="60" height="180" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="lantern-glow">
             <line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-width="2" class="text-gray-400 dark:text-gray-700"/>
@@ -211,9 +240,11 @@
         </svg>
     </div>
 
-    <div id="controlsContainer" class="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-4 text-[10px] sm:text-xs md:text-sm font-bold tracking-wider text-gray-400 dark:text-gray-500 z-50">
+    <!-- Controls -->
+    <div id="controlsContainer" dir="ltr" class="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-4 text-[10px] sm:text-xs md:text-sm font-bold tracking-wider text-gray-400 dark:text-gray-500 z-50 transition-opacity duration-500">
         <button id="langToggle" onclick="toggleLanguage()" class="hover:text-black dark:hover:text-white uppercase py-2 tracking-widest">AR</button>
 
+        <!-- Color Toggle -->
         <div class="relative">
             <button id="colorToggle" onclick="toggleColorDropdown(event)" class="hover:text-theme-light dark:hover:text-theme-dark py-2 group z-50 relative" aria-label="Change Color">
                 <svg id="paletteIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -221,11 +252,15 @@
                 </svg>
             </button>
             
+            <!-- Palette Menu -->
             <div id="colorDropdown" class="absolute right-10 top-0 flex flex-row gap-2 md:gap-3 items-center bg-white dark:bg-[#151515] p-2 rounded-full shadow-2xl border border-gray-100 dark:border-gray-800 dropdown-enter backdrop-blur-md z-40 pr-4">
                 <button onclick="selectColor(0)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#00FF88] hover:scale-125 shadow-sm"></button>
-                <button onclick="selectColor(1)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#FF3B30] hover:scale-125 shadow-sm"></button>
+                <button onclick="selectColor(1)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#FF1040] hover:scale-125 shadow-sm"></button> <!-- CHILLY RED -->
                 <button onclick="selectColor(2)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#3B82F6] hover:scale-125 shadow-sm"></button>
                 <button onclick="selectColor(3)" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#FACC15] hover:scale-125 shadow-sm"></button>
+                
+                <!-- Custom Color Ring Trigger -->
+                <button onclick="openColorPicker(event)" class="w-5 h-5 md:w-6 md:h-6 rounded-full hover:scale-125 shadow-sm bg-[conic-gradient(red,yellow,lime,cyan,blue,magenta,red)] flex justify-center items-center text-[10px]" title="Custom Color"></button>
             </div>
         </div>
 
@@ -241,35 +276,62 @@
         </button>
     </div>
 
+    <!-- Main Content -->
     <div id="mainContainer" class="w-full max-w-4xl px-4 sm:px-8 md:px-12 flex flex-col justify-center text-center z-10 relative">
         
-        <div id="dayBadgeContainer" class="flex justify-center mb-4 md:mb-8">
-            <h2 id="ramadanDay" class="text-xs sm:text-sm md:text-base font-bold text-theme-light dark:text-theme-dark tracking-[0.2em] uppercase py-1.5 px-4 md:py-2 md:px-6 rounded-full bg-gray-100/50 dark:bg-white/5 backdrop-blur-sm border border-gray-200 dark:border-white/10 badge-shadow">
-                </h2>
+        <!-- Day Badge with Embedded Time Machine Roller -->
+        <div id="dayBadgeContainer" class="flex justify-center mb-4 md:mb-8 transition-opacity duration-500">
+            <div id="badgeWrapper" class="relative rounded-full bg-white/90 dark:bg-white/5 backdrop-blur-md border border-gray-200/80 dark:border-white/10 badge-shadow cursor-pointer transition-all duration-300 h-[36px] md:h-[44px] overflow-hidden flex flex-col items-center justify-center w-[200px] md:w-[240px]">
+                
+                <h2 id="ramadanDay" dir="auto" class="text-xs sm:text-sm md:text-base font-bold text-theme-light dark:text-theme-dark tracking-[0.2em] uppercase transition-opacity duration-300 w-max whitespace-nowrap absolute"></h2>
+                
+                <div id="dayRoller" class="absolute inset-0 w-full h-full hidden overflow-y-scroll snap-y snap-mandatory scrollbar-hide mask-vertical text-center z-20">
+                    <div id="rollerInner" class="flex flex-col items-center w-full">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="relative py-2 px-2 sm:px-4 rounded-3xl w-full flex flex-col items-center">
             <span id="quoteTop" class="quote-mark absolute -top-4 md:-top-6 left-0 text-5xl md:text-7xl font-serif select-none opacity-50">“</span>
             
-            <h1 id="duaMain" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon">
-                </h1>
-
-            <p id="duaTranslation" class="text-sm sm:text-base md:text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed max-w-xl mx-auto font-sans mt-2 md:mt-0">
-                </p>
+            <h1 id="duaMain" dir="auto" class="animate-breathe text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon"></h1>
             
+            <p id="duaTranslation" dir="auto" class="text-sm sm:text-base md:text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed max-w-xl mx-auto font-sans mt-2 md:mt-0 transition-opacity duration-500"></p>
             <span id="quoteBottom" class="quote-mark absolute -bottom-6 md:-bottom-10 right-0 text-5xl md:text-7xl font-serif select-none opacity-50">”</span>
         </div>
         
-        <div class="mt-8 md:mt-12 flex flex-col items-center gap-2 md:gap-3">
+        <div class="mt-8 md:mt-12 flex flex-col items-center gap-2 md:gap-3 transition-opacity duration-500">
             <div id="separatorLine" class="w-12 h-[3px] md:w-16 md:h-1 bg-theme-light dark:bg-theme-dark rounded-full opacity-60 shadow-[0_0_8px_currentColor] text-theme-light dark:text-theme-dark"></div>
-            <p id="currentDate" class="text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-500 font-bold tracking-[0.1em] uppercase tabular-nums mt-2 md:mt-4"></p>
+            <p id="currentDate" dir="auto" class="text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-500 font-bold tracking-[0.1em] uppercase mt-2 md:mt-4"></p>
         </div>
     </div>
 
-    <div id="footerContainer" class="absolute bottom-6 w-full text-center px-4 z-10">
-        <p id="footerText" class="text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100">
+    <!-- Footer -->
+    <div id="footerContainer" class="absolute bottom-6 w-full flex justify-center px-4 z-10 pointer-events-none transition-opacity duration-500">
+        <p id="footerText" dir="auto" class="pointer-events-auto text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-pointer opacity-60 hover:opacity-100 transition-colors">
             Created by Marwan Elmoghazy.
         </p>
+    </div>
+
+    <!-- Custom Live Color Picker UI -->
+    <div id="customColorModal" dir="ltr" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 backdrop-blur-xl bg-black/40 dark:bg-black/60" onclick="closeColorPicker(event)">
+        <div class="bg-white/80 dark:bg-[#111]/80 backdrop-blur-md p-8 rounded-[3rem] shadow-2xl flex flex-col items-center gap-8 border border-white/20 dark:border-white/10 transform scale-95 transition-transform duration-500" id="colorModalContent" onclick="event.stopPropagation()">
+            <h3 class="text-gray-900 dark:text-white font-bold tracking-widest uppercase text-xs opacity-70">Slide to Pick</h3>
+            
+            <div id="wheelContainer" class="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center">
+                <div class="absolute inset-0 conic-ring shadow-lg" id="colorWheel"></div>
+                <div class="absolute w-36 h-36 sm:w-44 sm:h-44 bg-white/90 dark:bg-[#111]/90 rounded-full flex items-center justify-center pointer-events-none">
+                    <div id="colorCenterPreview" class="w-16 h-16 rounded-full shadow-inner opacity-80"></div>
+                </div>
+                <div id="colorThumb" class="absolute w-8 h-8 rounded-full border-4 border-white shadow-lg z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            </div>
+            
+            <button onclick="closeColorPicker(event, true)" class="mt-2 px-8 py-3 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-widest transition-transform hover:scale-105 active:scale-95 shadow-md">
+                Apply Theme
+            </button>
+        </div>
     </div>
 
     <script>
@@ -297,13 +359,25 @@
             
             let dropdownOpen = false;
             let isZenMode = false;
-
+            let customHue = parseInt(safeStorage.getItem('saved_custom_hue')) || 350; 
+            let tempHue = customHue; 
+            
             const ramadanStartDate = new Date(2026, 1, 19); 
+            
+            function getRealRamadanDay() {
+                const now = new Date();
+                now.setHours(0, 0, 0, 0);
+                const diffTime = now - ramadanStartDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                if (diffDays < 1) return 1; 
+                return diffDays;
+            }
+            
+            let currentActiveDay = getRealRamadanDay();
 
-            // Includes precise RGBs injected into CSS to ensure shadow animations map perfectly
             const colorThemes = [
                 { name: 'green',  light: '#059669', dark: '#00FF88', rgbDark: '0, 255, 136', rgbLight: '5, 150, 105' },   
-                { name: 'red',    light: '#DC2626', dark: '#FF3B30', rgbDark: '255, 59, 48', rgbLight: '220, 38, 38' },   
+                { name: 'red',    light: '#D90429', dark: '#FF1040', rgbDark: '255, 16, 64', rgbLight: '217, 4, 41' },   
                 { name: 'blue',   light: '#2563EB', dark: '#3B82F6', rgbDark: '59, 130, 246', rgbLight: '37, 99, 235' },  
                 { name: 'yellow', light: '#CA8A04', dark: '#FACC15', rgbDark: '250, 204, 21', rgbLight: '202, 138, 4' }   
             ];
@@ -358,7 +432,131 @@
             const separatorLine = el('separatorLine');
             const quoteTop = el('quoteTop');
             const quoteBottom = el('quoteBottom');
+            const metaThemeColor = el('metaThemeColor');
+            
+            const customModal = el('customColorModal');
+            const modalContent = el('colorModalContent');
+            const colorWheel = el('colorWheel');
+            const colorThumb = el('colorThumb');
+            const colorCenterPreview = el('colorCenterPreview');
 
+            async function transitionToDay(newDay) {
+                const textElements = [ramadanDayEl, duaMainEl, duaTranslationEl, currentDateEl, footerEl];
+                textElements.forEach(e => { if(e) e.classList.add('blur-fade-out'); });
+                
+                await new Promise(r => setTimeout(r, 400));
+                
+                currentActiveDay = newDay;
+                updateUI();
+                
+                await new Promise(r => requestAnimationFrame(r));
+                textElements.forEach(e => { if(e) e.classList.remove('blur-fade-out'); });
+            }
+
+            // --- TIME MACHINE ROLLER LOGIC ---
+            const badgeWrapper = el('badgeWrapper');
+            const rollerContainer = el('dayRoller');
+            const rollerInner = el('rollerInner');
+            let isRollerActive = false;
+            let tapCount = 0;
+            let tapTimer;
+            
+            function closeRoller(confirmAction) {
+                if (!isRollerActive) return;
+                
+                let selectedDay = currentActiveDay;
+                if (confirmAction) {
+                    let itemHeight = 40; 
+                    let index = Math.round(rollerContainer.scrollTop / itemHeight);
+                    selectedDay = index + 1; 
+                }
+                
+                isRollerActive = false;
+                badgeWrapper.classList.remove('badge-open');
+                
+                setTimeout(() => {
+                    rollerContainer.classList.add('hidden');
+                    ramadanDayEl.classList.remove('opacity-0');
+                    
+                    if (confirmAction && selectedDay !== currentActiveDay) {
+                        transitionToDay(selectedDay);
+                    } else {
+                        rollerContainer.scrollTop = (currentActiveDay - 1) * 40;
+                    }
+                }, 300); 
+            }
+
+            badgeWrapper.addEventListener('click', (e) => {
+                if (isRollerActive) {
+                    closeRoller(true); // User tapped the menu directly, so we CONFIRM the change
+                    return;
+                }
+
+                tapCount++;
+                clearTimeout(tapTimer);
+                if (tapCount === 3) {
+                    tapCount = 0;
+                    isRollerActive = true;
+                    
+                    populateRoller();
+                    
+                    ramadanDayEl.classList.add('opacity-0');
+                    badgeWrapper.classList.add('badge-open');
+                    
+                    setTimeout(() => {
+                        rollerContainer.classList.remove('hidden');
+                        rollerContainer.scrollTop = (currentActiveDay - 1) * 40;
+                    }, 150); 
+                } else {
+                    tapTimer = setTimeout(() => { tapCount = 0; }, 500);
+                }
+            });
+
+            function populateRoller() {
+                rollerInner.innerHTML = '';
+                
+                let padTop = document.createElement('div');
+                padTop.className = 'roller-item'; 
+                rollerInner.appendChild(padTop);
+
+                for(let i=1; i<=30; i++) {
+                    let div = document.createElement('div');
+                    div.className = 'roller-item text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] uppercase select-none transition-colors duration-200';
+                    
+                    if (lang === 'en') {
+                        div.innerText = `DAY ${i}`;
+                    } else {
+                        div.innerText = `اليوم ${toArabicNumerals(i)}`;
+                    }
+                    rollerInner.appendChild(div);
+                }
+                
+                let padBot = document.createElement('div');
+                padBot.className = 'roller-item'; 
+                rollerInner.appendChild(padBot);
+                highlightRollerCenter();
+            }
+            
+            rollerContainer.addEventListener('scroll', () => {
+                if(!isRollerActive) return;
+                window.requestAnimationFrame(highlightRollerCenter);
+            });
+
+            function highlightRollerCenter() {
+                let index = Math.round(rollerContainer.scrollTop / 40);
+                let items = rollerInner.children;
+                for(let i=1; i<=30; i++) {
+                    if (i === index + 1) {
+                        items[i].classList.add('text-theme-light', 'dark:text-theme-dark', 'scale-110');
+                        items[i].classList.remove('text-gray-400', 'dark:text-gray-600');
+                    } else {
+                        items[i].classList.remove('text-theme-light', 'dark:text-theme-dark', 'scale-110');
+                        items[i].classList.add('text-gray-400', 'dark:text-gray-600');
+                    }
+                }
+            }
+
+            // --- BASIC SETUP & ANIMATIONS ---
             function createParticles() {
                 if (!particlesContainer) return;
                 particlesContainer.innerHTML = ''; 
@@ -378,36 +576,175 @@
                 }
             }
 
-            function getRamadanDay() {
-                const now = new Date();
-                now.setHours(0, 0, 0, 0);
-                const diffTime = now - ramadanStartDate;
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                if (diffDays < 1) return 1; 
-                return diffDays;
+            function toArabicNumerals(numStr) {
+                return String(numStr).replace(/[0-9]/g, function(d) {
+                    return String.fromCharCode(d.charCodeAt(0) + 1584);
+                });
             }
 
             function getFormattedDate(locale) {
                 const now = new Date();
-                const gregorian = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
-                const rDay = getRamadanDay();
+                const rDay = currentActiveDay; 
                 const rYear = 1447; 
-                let hijri;
+                
                 if(locale === 'ar') {
-                    hijri = `${rDay} رمضان ${rYear}`;
+                    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                    const gregorian = new Intl.DateTimeFormat('ar-EG', options).format(now);
+                    
+                    const arDay = toArabicNumerals(rDay);
+                    const arYear = toArabicNumerals(rYear);
+                    
+                    return `${arDay} رمضان ${arYear} • ${gregorian}`;
                 } else {
-                    hijri = `Ramadan ${rDay}, ${rYear}`;
+                    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+                    const gregorian = new Intl.DateTimeFormat('en-US', options).format(now);
+                    return `Ramadan ${rDay}, ${rYear} • ${gregorian}`;
                 }
-                return `${hijri} • ${gregorian}`;
             }
 
+            // --- CUSTOM COLOR WHEEL LOGIC ---
+            function hslToRgb(h, s, l) {
+                h /= 360;
+                let r, g, b;
+                if (s === 0) { r = g = b = l; } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1 / 6) return p + (q - p) * 6 * t;
+                        if (t < 1 / 2) return q;
+                        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                        return p;
+                    };
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1 / 3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1 / 3);
+                }
+                return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+            }
+
+            function updatePreviewColors(hue) {
+                const darkRgbArr = hslToRgb(hue, 1, 0.6);
+                const hexColor = '#' + darkRgbArr.map(x => x.toString(16).padStart(2, '0')).join('');
+                
+                colorThumb.style.backgroundColor = hexColor;
+                colorCenterPreview.style.backgroundColor = hexColor;
+            }
+
+            function applySiteThemeColors(hue) {
+                const darkRgbArr = hslToRgb(hue, 1, 0.6);
+                const lightRgbArr = hslToRgb(hue, 1, 0.4);
+
+                const rgbToHex = (arr) => '#' + arr.map(x => x.toString(16).padStart(2, '0')).join('');
+                
+                document.documentElement.style.setProperty('--theme-light', rgbToHex(lightRgbArr));
+                document.documentElement.style.setProperty('--theme-dark', rgbToHex(darkRgbArr));
+                document.documentElement.style.setProperty('--theme-light-rgb', lightRgbArr.join(', '));
+                document.documentElement.style.setProperty('--theme-dark-rgb', darkRgbArr.join(', '));
+            }
+
+            function setThumbPositionFromHue(hue) {
+                let angle = hue - 90; 
+                let angleRad = angle * (Math.PI / 180);
+
+                const rect = colorWheel.getBoundingClientRect();
+                const radius = rect.width / 2;
+                const trackRadius = radius - 12; 
+                
+                const centerX = radius;
+                const centerY = radius;
+
+                const x = centerX + Math.cos(angleRad) * trackRadius;
+                const y = centerY + Math.sin(angleRad) * trackRadius;
+
+                colorThumb.style.left = `${x}px`;
+                colorThumb.style.top = `${y}px`;
+            }
+
+            let isDraggingWheel = false;
+
+            function handleWheelDrag(e) {
+                if (!isDraggingWheel) return;
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                const rect = colorWheel.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const dx = clientX - centerX;
+                const dy = clientY - centerY;
+
+                let angleRad = Math.atan2(dy, dx);
+                let angleDeg = angleRad * (180 / Math.PI);
+                
+                let hue = (angleDeg + 90 + 360) % 360;
+                
+                tempHue = hue;
+                updatePreviewColors(tempHue);
+                setThumbPositionFromHue(tempHue);
+            }
+
+            const stopDragging = () => {
+                if (isDraggingWheel) {
+                    isDraggingWheel = false;
+                    applySiteThemeColors(tempHue); 
+                }
+            };
+
+            colorWheel.addEventListener('mousedown', (e) => { isDraggingWheel = true; handleWheelDrag(e); });
+            colorWheel.addEventListener('touchstart', (e) => { isDraggingWheel = true; handleWheelDrag(e); }, {passive: false});
+            window.addEventListener('mousemove', handleWheelDrag);
+            window.addEventListener('touchmove', (e) => { if(isDraggingWheel) e.preventDefault(); handleWheelDrag(e); }, {passive: false});
+            window.addEventListener('mouseup', stopDragging);
+            window.addEventListener('touchend', stopDragging);
+
+            window.openColorPicker = (e) => {
+                if(e) e.stopPropagation();
+                closeDropdown();
+                
+                let startHue = currentColorIndex === -1 ? customHue : 152; 
+                customModal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                
+                setTimeout(() => { 
+                    updatePreviewColors(startHue);
+                    setThumbPositionFromHue(startHue); 
+                }, 50);
+            };
+
+            window.closeColorPicker = (e, apply = false) => {
+                if(e) e.stopPropagation();
+                
+                if(apply) {
+                    customHue = tempHue;
+                    safeStorage.setItem('saved_custom_hue', customHue);
+                    currentColorIndex = -1; 
+                    safeStorage.setItem('saved_color_index', currentColorIndex);
+                    applySiteThemeColors(customHue);
+                } else {
+                    applyColorTheme(currentColorIndex); 
+                }
+
+                customModal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+            };
+
             function applyColorTheme(index) {
-                if (!colorThemes[index]) index = 0;
-                const theme = colorThemes[index];
-                document.documentElement.style.setProperty('--theme-light', theme.light);
-                document.documentElement.style.setProperty('--theme-dark', theme.dark);
-                document.documentElement.style.setProperty('--theme-light-rgb', theme.rgbLight);
-                document.documentElement.style.setProperty('--theme-dark-rgb', theme.rgbDark);
+                if (index === -1) {
+                    applySiteThemeColors(customHue);
+                } else {
+                    if (!colorThemes[index]) index = 0;
+                    const theme = colorThemes[index];
+                    document.documentElement.style.setProperty('--theme-light', theme.light);
+                    document.documentElement.style.setProperty('--theme-dark', theme.dark);
+                    document.documentElement.style.setProperty('--theme-light-rgb', theme.rgbLight);
+                    document.documentElement.style.setProperty('--theme-dark-rgb', theme.rgbDark);
+                }
             }
 
             window.toggleColorDropdown = (e) => {
@@ -424,22 +761,21 @@
                 closeDropdown();
             };
 
-            window.toggleLanguage = () => {
-                const textElements = [ramadanDayEl, duaMainEl, duaTranslationEl, currentDateEl, footerContainer];
+            window.toggleLanguage = async () => {
+                const textElements = [ramadanDayEl, duaMainEl, duaTranslationEl, currentDateEl, footerEl];
                 
-                textElements.forEach(el => {
-                    if(el) el.classList.add('blur-fade-out');
-                });
+                textElements.forEach(el => { if(el) el.classList.add('blur-fade-out'); });
 
-                setTimeout(() => {
-                    lang = lang === 'en' ? 'ar' : 'en';
-                    safeStorage.setItem('saved_lang', lang); 
-                    updateUI();
-                    
-                    textElements.forEach(el => {
-                        if(el) el.classList.remove('blur-fade-out');
-                    });
-                }, 400); 
+                await new Promise(r => setTimeout(r, 400));
+                
+                lang = lang === 'en' ? 'ar' : 'en';
+                safeStorage.setItem('saved_lang', lang); 
+                updateUI();
+                
+                await new Promise(r => requestAnimationFrame(r));
+                await new Promise(r => requestAnimationFrame(r));
+                
+                textElements.forEach(el => { if(el) el.classList.remove('blur-fade-out'); });
             };
 
             window.toggleTheme = () => {
@@ -478,20 +814,35 @@
                     closeDropdown();
                     return; 
                 }
-                if (!e.target.closest('button') && !e.target.closest('#colorDropdown')) {
+
+                if (isRollerActive && !e.target.closest('#badgeWrapper')) {
+                    closeRoller(false); // Pass false to CANCEL the change and revert
+                    return;
+                }
+                
+                if (!e.target.closest('button') && 
+                    !e.target.closest('#colorDropdown') && 
+                    !e.target.closest('#customColorModal') && 
+                    !e.target.closest('#badgeWrapper') &&
+                    !e.target.closest('#footerText')) {
                     toggleZenMode();
                 }
             });
 
-            function getArabicOrdinal(number) {
-                const ordinals = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن", "التاسع", "العاشر", "الحادي عشر", "الثاني عشر", "الثالث عشر", "الرابع عشر", "الخامس عشر", "السادس عشر", "السابع عشر", "الثامن عشر", "التاسع عشر", "العشرين", "الحادي والعشرين", "الثاني والعشرين", "الثالث والعشرين", "الرابع والعشرين", "الخامس والعشرين", "السادس والعشرين", "السابع والعشرين", "الثامن والعشرين", "التاسع والعشرين", "الثلاثين"];
-                if(number <= ordinals.length) return ordinals[number - 1];
-                return number; 
+            function setClassSafely(elem, newClass) {
+                if (!elem) return;
+                const hasBlur = elem.classList.contains('blur-fade-out');
+                elem.className = newClass;
+                if (hasBlur) elem.classList.add('blur-fade-out');
             }
 
             function updateUI() {
-                const day = getRamadanDay();
+                const day = currentActiveDay; 
                 
+                document.documentElement.lang = lang;
+                document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+                if(currentDateEl) currentDateEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
                 if (day > 30) {
                     dayBadgeContainer.classList.add('hidden');
                     separatorLine.classList.add('hidden');
@@ -499,30 +850,29 @@
                     quoteBottom.classList.add('hidden');
                     
                     duaMainEl.innerText = lang === 'en' ? "Eid Mubarak" : "عيد مبارك";
-                    duaMainEl.className = "text-4xl sm:text-5xl md:text-7xl font-bold tracking-normal mb-2 leading-loose text-[#D4AF37] dark:text-[#FFD700] font-amiri drop-shadow-md flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px]";
+                    setClassSafely(duaMainEl, "animate-breathe text-4xl sm:text-5xl md:text-7xl font-bold tracking-normal mb-2 leading-loose text-[#D4AF37] dark:text-[#FFD700] font-amiri drop-shadow-md flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px]");
                     
                     duaTranslationEl.innerText = lang === 'en' ? "May Allah accept from us and from you." : "تقبل الله منا ومنكم صالح الأعمال";
                     duaTranslationEl.classList.remove('hidden');
-                    
                     currentDateEl.innerText = ""; 
                     
                     if (lang === 'en') {
                         langBtn.innerText = "AR";
                         footerEl.innerText = "Created by Marwan Elmoghazy.";
-                        footerEl.className = "text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                        setClassSafely(footerEl, "pointer-events-auto text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-pointer opacity-60 hover:opacity-100 transition-colors");
                     } else {
                         langBtn.innerText = "EN";
                         footerEl.innerText = "تم الإنشاء والتطوير بواسطة مروان المغازي.";
-                        footerEl.className = "text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                        setClassSafely(footerEl, "pointer-events-auto text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-pointer opacity-60 hover:opacity-100 transition-colors");
                     }
                     return; 
                 }
 
-                const duaIndex = (day - 1) % duas.length; 
+                const duaIndex = Math.max(0, (day - 1) % duas.length); 
                 const currentDua = duas[duaIndex];
 
                 duaMainEl.innerText = currentDua.ar;
-                duaMainEl.className = "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon";
+                setClassSafely(duaMainEl, "animate-breathe text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal mb-2 leading-loose text-gray-900 dark:text-white font-amiri drop-shadow-sm flex items-center justify-center py-2 max-w-full min-h-[100px] md:min-h-[140px] dark:text-neon");
                 
                 duaTranslationEl.innerText = currentDua.en;
                 duaTranslationEl.classList.remove('hidden');
@@ -534,16 +884,16 @@
                     currentDateEl.innerText = getFormattedDate('en'); 
                     langBtn.innerText = "AR";
                     footerEl.innerText = "Created by Marwan Elmoghazy.";
-                    footerEl.className = "text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                    setClassSafely(footerEl, "pointer-events-auto text-[8px] sm:text-[10px] md:text-xs text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-pointer opacity-60 hover:opacity-100 transition-colors");
 
                 } else {
-                    ramadanDayEl.innerText = `اليوم ${getArabicOrdinal(day)} من رمضان`;
+                    ramadanDayEl.innerText = `اليوم ${toArabicNumerals(day)} من رمضان`;
                     ramadanDayEl.style.fontFamily = '"Cairo", sans-serif';
                     
                     currentDateEl.innerText = getFormattedDate('ar'); 
                     langBtn.innerText = "EN";
                     footerEl.innerText = "تم الإنشاء والتطوير بواسطة مروان المغازي.";
-                    footerEl.className = "text-[10px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-default opacity-60 hover:opacity-100";
+                    setClassSafely(footerEl, "pointer-events-auto text-[11px] sm:text-xs md:text-sm text-gray-400 dark:text-gray-600 font-bold uppercase tracking-[0.2em] hover:text-theme-light dark:hover:text-theme-dark cursor-pointer opacity-60 hover:opacity-100 transition-colors");
                 }
             }
 
@@ -551,6 +901,11 @@
                 const sun = el('sunIcon');
                 const moon = el('moonIcon');
                 if(!sun || !moon) return;
+                
+                if(metaThemeColor) {
+                    metaThemeColor.setAttribute('content', isDark ? '#000000' : '#F9FAFB');
+                }
+
                 if (isDark) {
                     sun.classList.remove('opacity-100', 'scale-100', 'rotate-0');
                     sun.classList.add('opacity-0', 'scale-50', 'rotate-90');
@@ -575,3 +930,5 @@
     </script>
 </body>
 </html>
+
+
