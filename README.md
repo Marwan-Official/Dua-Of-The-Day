@@ -40,13 +40,18 @@
 * **🎮 Modern UX Enhancements:** Touch-friendly UI, gentle breathing animation, floating particles, and a responsive design powered by Tailwind CSS.
 * **🎊 Eid Celebration:** Special message with festive golden styling after Ramadan concludes.
 
-## 🛠️ Installation & Usage
+# 🛠️ Installation
 
-1.  **No Build Needed:** Built with Vanilla JavaScript & Tailwind CSS (CDN)—just open `index.html` in your browser.
-2.  **Live Color Picker:** Easily access a custom color wheel for advanced theme customization.
-3.  **Browse Any Dua:** Triple-tap the Day Badge to reveal a scrollable "time machine" for instant access to any day's Dua.
-4.  **Persistent UI Preferences:** All user settings (language, theme, color palette) are saved and restored.
-5.  **Mobile-first:** Designed for touch, supports native app meta tags for home screen installation.
+This project is built with **Vanilla JavaScript** and **Tailwind CSS (CDN)**, meaning no build steps or package managers (npm/yarn) are required to run it locally.
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/Marwan-Official/Dua-Of-The-Day.git
+    ```
+
+2.  **Run the project**
+    * Simply open the `index.html` file in your browser.
+    * *Optional:* Use the "Live Server" extension in VS Code for the best experience.
 
 ## 🎮 How to Use
 
